@@ -36,7 +36,7 @@ class AsqAdapterFactory implements FactoryInterface
         $connectionString = sprintf(
             "DefaultEndpointsProtocol=%s;AccountName=%s;AccountKey=%s",
             'https',
-            'dv-tms',
+            '',
             ''
         );
         $asqClient = QueueRestProxy::createQueueService($connectionString);
