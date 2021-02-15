@@ -1,5 +1,10 @@
 <?php
 
+use BayWaReLusy\Tools\Queue\QueueService;
+use BayWaReLusy\Tools\Queue\QueueServiceFactory;
+use BayWaReLusy\Tools\Queue\Adapter\AsqAdapter;
+use BayWaReLusy\Tools\Queue\Adapter\AsqAdapterFactory;
+
 return [
     'service_manager' =>
         [
@@ -8,8 +13,8 @@ return [
                 ],
             'factories' =>
                 [
-                    'queue'             => \BayWaReLusy\Tools\Queue\QueueServiceFactory::class,
-                    'queue.adapter.asq' => \BayWaReLusy\Tools\Queue\Adapter\AsqAdapterFactory::class,
+                    QueueService::class => QueueServiceFactory::class,
+                    AsqAdapter::class   => AsqAdapterFactory::class,
                 ],
             'abstract_factories' =>
                 [
