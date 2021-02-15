@@ -31,10 +31,7 @@ class QueueService implements ConsoleAwareInterface
 {
     use ConsoleAwareTrait;
 
-    const QUEUE_ADAPTER_SQS = 'sqs';
-
-    /** @var AdapterInterface $adapter */
-    protected $adapter;
+    protected AdapterInterface $adapter;
 
     /**
      * Set the adapter.

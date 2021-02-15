@@ -28,14 +28,14 @@ use Laminas\Console\Adapter\AdapterInterface as Console;
  */
 trait ConsoleAwareTrait
 {
-    protected Console $console;
+    protected ?Console $console = null;
 
     /**
      * Get the console adapter
      *
-     * @return Console
+     * @return Console|null
      */
-    public function getConsole(): Console
+    public function getConsole(): ?Console
     {
         return $this->console;
     }
@@ -47,7 +47,7 @@ trait ConsoleAwareTrait
      *
      * @return self
      */
-    public function setConsole(Console $console)
+    public function setConsole(Console $console): ConsoleAwareTrait
     {
         $this->console = $console;
 

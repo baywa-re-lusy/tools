@@ -31,7 +31,7 @@ interface ConsoleAwareInterface
      *
      * @return Console|null
      */
-    public function getConsole();
+    public function getConsole(): ?Console;
 
     /**
      * Set the console adapter
@@ -40,5 +40,5 @@ interface ConsoleAwareInterface
      *
      * @return self
      */
-    public function setConsole(Console $console);
+    public function setConsole(Console $console): ConsoleAwareInterface;
 }
