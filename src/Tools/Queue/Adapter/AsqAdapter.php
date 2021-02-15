@@ -48,6 +48,12 @@ class AsqAdapter implements AdapterInterface
         string $messageGroupId = null,
         string $messageDeduplicationId = null
     ): AdapterInterface {
+        if ($messageGroupId || $messageDeduplicationId) {
+            throw new \InvalidArgumentException('FIFO not supported for Azure Storage Queue Service.');
+        }
+
+        $this->asqClient->createMessage($queueUrl, $messageBody);
+
         return $this;
     }
 
