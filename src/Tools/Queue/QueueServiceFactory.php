@@ -12,6 +12,7 @@
 
 namespace BayWaReLusy\Tools\Queue;
 
+use BayWaReLusy\Tools\Queue\Adapter\AsqAdapter;
 use Interop\Container\ContainerInterface;
 use Laminas\ServiceManager\Factory\FactoryInterface;
 
@@ -32,8 +33,8 @@ class QueueServiceFactory implements FactoryInterface
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
         $queueService = new QueueService();
-        $queueService->setAdapter($container->get('queue.adapter.asq'));
+        $queueService->setAdapter($container->get(AsqAdapter::class));
 
-        return $queue;
+        return $queueService;
     }
 }
