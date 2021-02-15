@@ -2,3 +2,5 @@ composer.lock
 composer.phar
 results/
 results/*
+vendor
+.idea
