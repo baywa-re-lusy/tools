@@ -34,5 +34,7 @@ class Tools extends ServiceManager
     {
         $services = require __DIR__ . '/../../config/module.config.php';
         parent::__construct($services['service_manager']);
+
+        $this->setService(ToolsConfig::class, $config);
     }
 }

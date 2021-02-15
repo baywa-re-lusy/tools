@@ -13,6 +13,7 @@
 namespace BayWaReLusy\Tools\Queue\Adapter;
 
 use Aws\Sqs\SqsClient;
+use BayWaReLusy\Tools\ToolsConfig;
 use Interop\Container\ContainerInterface;
 use Laminas\ServiceManager\Factory\FactoryInterface;
 use MicrosoftAzure\Storage\Queue\QueueRestProxy;
@@ -33,13 +34,10 @@ class AsqAdapterFactory implements FactoryInterface
 {
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
-        $connectionString = sprintf(
-            "DefaultEndpointsProtocol=%s;AccountName=%s;AccountKey=%s",
-            'https',
-            '',
-            ''
-        );
-        $asqClient = QueueRestProxy::createQueueService($connectionString);
+        /** @var ToolsConfig $toolsConfig */
+        $toolsConfig = $container->get(ToolsConfig::class);
+
+        $asqClient = QueueRestProxy::createQueueService($toolsConfig->getAzureStorageAccountConnectionString());
 
         return new \BayWaReLusy\Tools\Queue\Adapter\AsqAdapter($asqClient);
     }

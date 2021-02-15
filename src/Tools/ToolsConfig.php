@@ -25,8 +25,25 @@ namespace BayWaReLusy\Tools;
  */
 class ToolsConfig
 {
+    protected string $azureStorageAccountConnectionString;
     protected string $publisherKey;
     protected string $subscriberKey;
+
+    /**
+     * @return string
+     */
+    public function getAzureStorageAccountConnectionString(): string
+    {
+        return $this->azureStorageAccountConnectionString;
+    }
+
+    /**
+     * @param string $azureStorageAccountConnectionString
+     */
+    public function setAzureStorageAccountConnectionString(string $azureStorageAccountConnectionString): void
+    {
+        $this->azureStorageAccountConnectionString = $azureStorageAccountConnectionString;
+    }
 
     /**
      * @return string
