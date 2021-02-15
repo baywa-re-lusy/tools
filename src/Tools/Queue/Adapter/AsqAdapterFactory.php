@@ -37,7 +37,7 @@ class AsqAdapterFactory implements FactoryInterface
             "DefaultEndpointsProtocol=%s;AccountName=%s;AccountKey=%s",
             'https',
             'dv-tms',
-            '352b124e-8e9c-4f09-9c79-72925fd18e3d'
+            ''
         );
         $asqClient = QueueRestProxy::createQueueService($connectionString);
 
