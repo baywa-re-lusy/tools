@@ -1,0 +1,7 @@
+parameters:
+    ignoreErrors:
+    excludes_analyse:
+        - module/Application/src/Controller/IndexController.php
+        - module/Application/src/Module.php
+        - module/tms/Module.php
+    checkMissingIterableValueType: false
