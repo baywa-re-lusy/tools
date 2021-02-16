@@ -25,80 +25,95 @@ namespace BayWaReLusy\Tools;
  */
 class ToolsConfig
 {
-    protected string $azureStorageAccountConnectionString;
-    protected string $azureServiceBusConnectionString;
-    protected string $publisherKey;
-    protected string $subscriberKey;
+    protected ?string $awsRegion;
+    protected ?string $awsKey;
+    protected ?string $awsSecret;
+    protected ?string $azureStorageAccountConnectionString;
+    protected ?string $azureServiceBusConnectionString;
+    protected ?string $publisherKey;
+    protected ?string $subscriberKey;
 
     /**
-     * @return string
+     * ToolsConfig constructor.
+     * @param string|null $awsRegion
+     * @param string|null $awsKey
+     * @param string|null $awsSecret
+     * @param string|null $azureStorageAccountConnectionString
+     * @param string|null $azureServiceBusConnectionString
+     * @param string|null $publisherKey
+     * @param string|null $subscriberKey
      */
-    public function getAzureStorageAccountConnectionString(): string
+    public function __construct(
+        ?string $awsRegion,
+        ?string $awsKey,
+        ?string $awsSecret,
+        ?string $azureStorageAccountConnectionString,
+        ?string $azureServiceBusConnectionString,
+        ?string $publisherKey,
+        ?string $subscriberKey
+    ) {
+        $this->awsRegion                           = $awsRegion;
+        $this->awsKey                              = $awsKey;
+        $this->awsSecret                           = $awsSecret;
+        $this->azureStorageAccountConnectionString = $azureStorageAccountConnectionString;
+        $this->azureServiceBusConnectionString     = $azureServiceBusConnectionString;
+        $this->publisherKey                        = $publisherKey;
+        $this->subscriberKey                       = $subscriberKey;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getAwsRegion(): ?string
+    {
+        return $this->awsRegion;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getAwsKey(): ?string
+    {
+        return $this->awsKey;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getAwsSecret(): ?string
+    {
+        return $this->awsSecret;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getAzureStorageAccountConnectionString(): ?string
     {
         return $this->azureStorageAccountConnectionString;
     }
 
     /**
-     * @param string $azureStorageAccountConnectionString
-     * @return ToolsConfig
+     * @return string|null
      */
-    public function setAzureStorageAccountConnectionString(string $azureStorageAccountConnectionString): ToolsConfig
-    {
-        $this->azureStorageAccountConnectionString = $azureStorageAccountConnectionString;
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getAzureServiceBusConnectionString(): string
+    public function getAzureServiceBusConnectionString(): ?string
     {
         return $this->azureServiceBusConnectionString;
     }
 
     /**
-     * @param string $azureServiceBusConnectionString
-     * @return ToolsConfig
+     * @return string|null
      */
-    public function setAzureServiceBusConnectionString(string $azureServiceBusConnectionString): ToolsConfig
-    {
-        $this->azureServiceBusConnectionString = $azureServiceBusConnectionString;
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getPublisherKey(): string
+    public function getPublisherKey(): ?string
     {
         return $this->publisherKey;
     }
 
     /**
-     * @param string $publisherKey
-     * @return ToolsConfig
+     * @return string|null
      */
-    public function setPublisherKey(string $publisherKey): ToolsConfig
-    {
-        $this->publisherKey = $publisherKey;
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getSubscriberKey(): string
+    public function getSubscriberKey(): ?string
     {
         return $this->subscriberKey;
-    }
-
-    /**
-     * @param string $subscriberKey
-     * @return ToolsConfig
-     */
-    public function setSubscriberKey(string $subscriberKey): ToolsConfig
-    {
-        $this->subscriberKey = $subscriberKey;
-        return $this;
     }
 }

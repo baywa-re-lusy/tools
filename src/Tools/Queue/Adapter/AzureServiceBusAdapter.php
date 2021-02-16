@@ -14,10 +14,8 @@ namespace BayWaReLusy\Tools\Queue\Adapter;
 
 use BayWaReLusy\Tools\Queue\Message;
 use BayWaReLusy\Tools\Queue\QueueException;
-use WindowsAzure\Common\ServicesBuilder;
 use WindowsAzure\Common\ServiceException;
 use WindowsAzure\ServiceBus\Models\BrokeredMessage;
-use WindowsAzure\ServiceBus\Models\ReceiveMessageOptions;
 use WindowsAzure\ServiceBus\ServiceBusRestProxy as AzureServiceBusClient;
 
 /**
