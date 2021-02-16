@@ -44,13 +44,13 @@ class ToolsConfig
      * @param string|null $subscriberKey
      */
     public function __construct(
-        ?string $awsRegion,
-        ?string $awsKey,
-        ?string $awsSecret,
-        ?string $azureStorageAccountConnectionString,
-        ?string $azureServiceBusConnectionString,
-        ?string $publisherKey,
-        ?string $subscriberKey
+        string $awsRegion = null,
+        string $awsKey = null,
+        string $awsSecret = null,
+        string $azureStorageAccountConnectionString = null,
+        string $azureServiceBusConnectionString = null,
+        string $publisherKey = null,
+        string $subscriberKey = null
     ) {
         $this->awsRegion                           = $awsRegion;
         $this->awsKey                              = $awsKey;
