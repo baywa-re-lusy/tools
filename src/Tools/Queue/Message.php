@@ -2,12 +2,12 @@
 /**
  * Message.php
  *
- * @date        26.02.2018
- * @author      Pascal Paulis <pascal.paulis@baywa-re.com>
- * @file        Message.php
- * @copyright   Copyright (c) BayWa r.e. - All rights reserved
- * @license     Unauthorized copying of this source code, via any medium is strictly
- *              prohibited, proprietary and confidential.
+ * @date      16.02.2021
+ * @author    Pascal Paulis <pascal.paulis@baywa-re.com>
+ * @file      Message.php
+ * @copyright Copyright (c) BayWa r.e. - All rights reserved
+ * @license   Unauthorized copying of this source code, via any medium is strictly
+ *            prohibited, proprietary and confidential.
  */
 
 namespace BayWaReLusy\Tools\Queue;

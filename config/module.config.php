@@ -2,8 +2,10 @@
 
 use BayWaReLusy\Tools\Queue\QueueService;
 use BayWaReLusy\Tools\Queue\QueueServiceFactory;
-use BayWaReLusy\Tools\Queue\Adapter\AsqAdapter;
-use BayWaReLusy\Tools\Queue\Adapter\AsqAdapterFactory;
+use BayWaReLusy\Tools\Queue\Adapter\AzureStorageQueueAdapter;
+use BayWaReLusy\Tools\Queue\Adapter\AzureStorageQueueAdapterFactory;
+use BayWaReLusy\Tools\Queue\Adapter\AzureServiceBusAdapter;
+use BayWaReLusy\Tools\Queue\Adapter\AzureServiceBusAdapterFactory;
 
 return [
     'service_manager' =>
@@ -13,8 +15,9 @@ return [
                 ],
             'factories' =>
                 [
-                    QueueService::class => QueueServiceFactory::class,
-                    AsqAdapter::class   => AsqAdapterFactory::class,
+                    QueueService::class             => QueueServiceFactory::class,
+                    AzureStorageQueueAdapter::class => AzureStorageQueueAdapterFactory::class,
+                    AzureServiceBusAdapter::class   => AzureServiceBusAdapterFactory::class,
                 ],
             'abstract_factories' =>
                 [

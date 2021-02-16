@@ -1,25 +1,24 @@
 <?php
 /**
- * AsqAdapterFactory.php
+ * AzureStorageQueueAdapterFactory.php
  *
- * @date        26.02.2018
- * @author      Pascal Paulis <pascal.paulis@baywa-re.com>
- * @file        AsqAdapterFactory.php
- * @copyright   Copyright (c) BayWa r.e. - All rights reserved
- * @license     Unauthorized copying of this source code, via any medium is strictly
- *              prohibited, proprietary and confidential.
+ * @date      16.02.2021
+ * @author    Pascal Paulis <pascal.paulis@baywa-re.com>
+ * @file      AzureStorageQueueAdapterFactory.php
+ * @copyright Copyright (c) BayWa r.e. - All rights reserved
+ * @license   Unauthorized copying of this source code, via any medium is strictly
+ *            prohibited, proprietary and confidential.
  */
 
 namespace BayWaReLusy\Tools\Queue\Adapter;
 
-use Aws\Sqs\SqsClient;
 use BayWaReLusy\Tools\ToolsConfig;
 use Interop\Container\ContainerInterface;
 use Laminas\ServiceManager\Factory\FactoryInterface;
 use MicrosoftAzure\Storage\Queue\QueueRestProxy;
 
 /**
- * Class AsqAdapterFactory
+ * Class AzureStorageQueueAdapterFactory
  *
  * @package     BayWaReLusy
  * @subpackage  Tools
@@ -30,7 +29,7 @@ use MicrosoftAzure\Storage\Queue\QueueRestProxy;
  *
  * @codeCoverageIgnore
  */
-class AsqAdapterFactory implements FactoryInterface
+class AzureStorageQueueAdapterFactory implements FactoryInterface
 {
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
@@ -39,6 +38,6 @@ class AsqAdapterFactory implements FactoryInterface
 
         $asqClient = QueueRestProxy::createQueueService($toolsConfig->getAzureStorageAccountConnectionString());
 
-        return new \BayWaReLusy\Tools\Queue\Adapter\AsqAdapter($asqClient);
+        return new \BayWaReLusy\Tools\Queue\Adapter\AzureStorageQueueAdapter($asqClient);
     }
 }

@@ -2,17 +2,18 @@
 /**
  * AdapterInterface.php
  *
- * @date        27.02.2018
- * @author      Pascal Paulis <pascal.paulis@baywa-re.com>
- * @file        AdapterInterface.php
- * @copyright   Copyright (c) BayWa r.e. - All rights reserved
- * @license     Unauthorized copying of this source code, via any medium is strictly
- *              prohibited, proprietary and confidential.
+ * @date      16.02.2021
+ * @author    Pascal Paulis <pascal.paulis@baywa-re.com>
+ * @file      AdapterInterface.php
+ * @copyright Copyright (c) BayWa r.e. - All rights reserved
+ * @license   Unauthorized copying of this source code, via any medium is strictly
+ *            prohibited, proprietary and confidential.
  */
 
 namespace BayWaReLusy\Tools\Queue\Adapter;
 
 use BayWaReLusy\Tools\Queue\Message;
+use BayWaReLusy\Tools\Queue\QueueException;
 
 /**
  * AdapterInterface
@@ -34,6 +35,7 @@ interface AdapterInterface
      * @param ?string $messageGroupId In case of a FIFO queue, messages can be grouped
      * @param ?string $messageDeduplicationId In case of a FIFO queue, a deduplication ID can be provided
      * @return $this
+     * @throws QueueException
      */
     public function sendMessage(
         string $queueUrl,

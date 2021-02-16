@@ -1,13 +1,13 @@
 <?php
 /**
- * AsqAdapter.php
+ * AzureStorageQueueAdapter.php
  *
- * @date        27.02.2018
- * @author      Pascal Paulis <pascal.paulis@baywa-re.com>
- * @file        AsqAdapter.php
- * @copyright   Copyright (c) BayWa r.e. - All rights reserved
- * @license     Unauthorized copying of this source code, via any medium is strictly
- *              prohibited, proprietary and confidential.
+ * @date      16.02.2021
+ * @author    Pascal Paulis <pascal.paulis@baywa-re.com>
+ * @file      AzureStorageQueueAdapter.php
+ * @copyright Copyright (c) BayWa r.e. - All rights reserved
+ * @license   Unauthorized copying of this source code, via any medium is strictly
+ *            prohibited, proprietary and confidential.
  */
 
 namespace BayWaReLusy\Tools\Queue\Adapter;
@@ -17,7 +17,7 @@ use BayWaReLusy\Tools\Queue\Message;
 use MicrosoftAzure\Storage\Queue\QueueRestProxy as AsqClient;
 
 /**
- * AsqAdapter
+ * AzureStorageQueueAdapter
  *
  * @package    Tools
  * @subpackage Service
@@ -26,12 +26,12 @@ use MicrosoftAzure\Storage\Queue\QueueRestProxy as AsqClient;
  * @license    Unauthorized copying of this source code, via any medium is strictly
  *             prohibited, proprietary and confidential.
  */
-class AsqAdapter implements AdapterInterface
+class AzureStorageQueueAdapter implements AdapterInterface
 {
     protected AsqClient $asqClient;
 
     /**
-     * AsqAdapter constructor.
+     * AzureStorageQueueAdapter constructor.
      * @param AsqClient $asqClient
      */
     public function __construct(AsqClient $asqClient)

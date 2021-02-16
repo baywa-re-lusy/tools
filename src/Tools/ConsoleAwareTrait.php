@@ -2,7 +2,7 @@
 /**
  * ConsoleAwareInterface.php
  *
- * @date        27.02.2018
+ * @date        16.02.2021
  * @author      Pascal Paulis <pascal.paulis@baywa-re.com>
  * @file        ConsoleAwareInterface.php
  * @copyright   Copyright (c) BayWa r.e. - All rights reserved

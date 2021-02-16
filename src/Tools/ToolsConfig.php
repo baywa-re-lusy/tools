@@ -2,7 +2,7 @@
 /**
  * ToolsConfig.php
  *
- * @date        27.02.2018
+ * @date        16.02.2021
  * @author      Pascal Paulis <pascal.paulis@baywa-re.com>
  * @file        ToolsConfig.php
  * @copyright   Copyright (c) BayWa r.e. - All rights reserved
@@ -26,6 +26,7 @@ namespace BayWaReLusy\Tools;
 class ToolsConfig
 {
     protected string $azureStorageAccountConnectionString;
+    protected string $azureServiceBusConnectionString;
     protected string $publisherKey;
     protected string $subscriberKey;
 
@@ -43,6 +44,24 @@ class ToolsConfig
     public function setAzureStorageAccountConnectionString(string $azureStorageAccountConnectionString): void
     {
         $this->azureStorageAccountConnectionString = $azureStorageAccountConnectionString;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAzureServiceBusConnectionString(): string
+    {
+        return $this->azureServiceBusConnectionString;
+    }
+
+    /**
+     * @param string $azureServiceBusConnectionString
+     * @return ToolsConfig
+     */
+    public function setAzureServiceBusConnectionString(string $azureServiceBusConnectionString): ToolsConfig
+    {
+        $this->azureServiceBusConnectionString = $azureServiceBusConnectionString;
+        return $this;
     }
 
     /**
