@@ -40,10 +40,12 @@ class ToolsConfig
 
     /**
      * @param string $azureStorageAccountConnectionString
+     * @return ToolsConfig
      */
-    public function setAzureStorageAccountConnectionString(string $azureStorageAccountConnectionString): void
+    public function setAzureStorageAccountConnectionString(string $azureStorageAccountConnectionString): ToolsConfig
     {
         $this->azureStorageAccountConnectionString = $azureStorageAccountConnectionString;
+        return $this;
     }
 
     /**
