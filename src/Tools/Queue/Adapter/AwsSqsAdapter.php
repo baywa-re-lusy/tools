@@ -60,7 +60,7 @@ class AwsSqsAdapter implements AdapterInterface
             $params['MessageDeduplicationId'] = $messageDeduplicationId;
         }
 
-        $this->getSqsClient()->sendMessage($params);
+        $this->sqsClient->sendMessage($params);
 
         return $this;
     }
@@ -70,7 +70,7 @@ class AwsSqsAdapter implements AdapterInterface
      */
     public function receiveMessage(string $queueUrl): ?Message
     {
-        $result = $this->getSqsClient()->receiveMessage(['QueueUrl' => $queueUrl]);
+        $result = $this->sqsClient->receiveMessage(['QueueUrl' => $queueUrl]);
 
         if (!empty($result['Messages'])) {
             // By default, only one message will be returned
@@ -91,7 +91,7 @@ class AwsSqsAdapter implements AdapterInterface
      */
     public function deleteMessage(string $queueUrl, Message $message): AdapterInterface
     {
-        $this->getSqsClient()->deleteMessage([
+        $this->sqsClient->deleteMessage([
             'QueueUrl'      => $queueUrl,
             'ReceiptHandle' => $message->getReceiptHandle()
         ]);
