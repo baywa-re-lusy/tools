@@ -1,7 +1,6 @@
 <?php
 
 use BayWaReLusy\Tools\Queue\QueueService;
-use BayWaReLusy\Tools\Queue\QueueServiceFactory;
 use BayWaReLusy\Tools\Queue\Adapter\AzureStorageQueueAdapter;
 use BayWaReLusy\Tools\Queue\Adapter\AzureStorageQueueAdapterFactory;
 use BayWaReLusy\Tools\Queue\Adapter\AzureServiceBusAdapter;
@@ -12,10 +11,10 @@ return [
         [
             'invokables' =>
                 [
+                    QueueService::class
                 ],
             'factories' =>
                 [
-                    QueueService::class             => QueueServiceFactory::class,
                     AzureStorageQueueAdapter::class => AzureStorageQueueAdapterFactory::class,
                     AzureServiceBusAdapter::class   => AzureServiceBusAdapterFactory::class,
                 ],
