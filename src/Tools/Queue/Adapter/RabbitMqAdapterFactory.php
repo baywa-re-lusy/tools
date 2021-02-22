@@ -1,10 +1,10 @@
 <?php
 /**
- * AzureStorageQueueAdapterFactory.php
+ * RabbitMqAdapterFactory.php
  *
- * @date      16.02.2021
+ * @date      22.02.2021
  * @author    Pascal Paulis <pascal.paulis@baywa-re.com>
- * @file      AzureStorageQueueAdapterFactory.php
+ * @file      RabbitMqAdapterFactory.php
  * @copyright Copyright (c) BayWa r.e. - All rights reserved
  * @license   Unauthorized copying of this source code, via any medium is strictly
  *            prohibited, proprietary and confidential.
@@ -12,16 +12,16 @@
 
 namespace BayWaReLusy\Tools\Queue\Adapter;
 
+use Aws\Sqs\SqsClient;
 use BayWaReLusy\Tools\ToolsConfig;
 use Interop\Container\ContainerInterface;
 use Laminas\ServiceManager\Factory\FactoryInterface;
-use MicrosoftAzure\Storage\Queue\QueueRestProxy;
+use PhpAmqpLib\Connection\AMQPStreamConnection;
 
 /**
- * Class AzureStorageQueueAdapterFactory
+ * Class AwsSqsAdapterFactory
  *
  * @package     BayWaReLusy
- * @subpackage  Tools
  * @author      Pascal Paulis <pascal.paulis@baywa-re.com>
  * @copyright   Copyright (c) BayWa r.e. - All rights reserved
  * @license     Unauthorized copying of this source code, via any medium is strictly
@@ -29,15 +29,20 @@ use MicrosoftAzure\Storage\Queue\QueueRestProxy;
  *
  * @codeCoverageIgnore
  */
-class AzureStorageQueueAdapterFactory implements FactoryInterface
+class RabbitMqAdapterFactory implements FactoryInterface
 {
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
-        /** @var ToolsConfig $toolsConfig */
-        $toolsConfig = $container->get(ToolsConfig::class);
+        /** @var ToolsConfig $config */
+        $config = $container->get(ToolsConfig::class);
 
-        $asqClient = QueueRestProxy::createQueueService($toolsConfig->getAzureStorageAccountConnectionString());
+        $connection = new AMQPStreamConnection(
+            $config->getRabbitMqHost(),
+            $config->getRabbitMqPort(),
+            $config->getRabbitMqUser(),
+            $config->getRabbitMqPassword()
+        );
 
-        return new \BayWaReLusy\Tools\Queue\Adapter\AzureStorageQueueAdapter($asqClient);
+        return new RabbitMqAdapter($connection);
     }
 }

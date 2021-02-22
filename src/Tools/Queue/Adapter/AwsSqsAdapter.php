@@ -24,7 +24,7 @@ use BayWaReLusy\Tools\Queue\Message;
  * @license    Unauthorized copying of this source code, via any medium is strictly
  *             prohibited, proprietary and confidential.
  */
-class AwsSqsAdapter implements AdapterInterface
+class AwsSqsAdapter implements PollingQueueAdapterInterface
 {
     protected SqsClient $sqsClient;
 
@@ -45,7 +45,7 @@ class AwsSqsAdapter implements AdapterInterface
         string $messageBody,
         string $messageGroupId = null,
         string $messageDeduplicationId = null
-    ): AdapterInterface {
+    ): QueueAdapterInterface {
         $params =
             [
                 'QueueUrl'    => $queueUrl,
@@ -89,7 +89,7 @@ class AwsSqsAdapter implements AdapterInterface
     /**
      * @inheritdoc
      */
-    public function deleteMessage(string $queueUrl, Message $message): AdapterInterface
+    public function deleteMessage(string $queueUrl, Message $message): QueueAdapterInterface
     {
         $this->sqsClient->deleteMessage([
             'QueueUrl'      => $queueUrl,

@@ -25,40 +25,80 @@ namespace BayWaReLusy\Tools;
  */
 class ToolsConfig
 {
+    protected ?string $rabbitMqHost;
+    protected ?string $rabbitMqPort;
+    protected ?string $rabbitMqUser;
+    protected ?string $rabbitMqPassword;
     protected ?string $awsRegion;
     protected ?string $awsKey;
     protected ?string $awsSecret;
-    protected ?string $azureStorageAccountConnectionString;
-    protected ?string $azureServiceBusConnectionString;
     protected ?string $publisherKey;
     protected ?string $subscriberKey;
 
     /**
      * ToolsConfig constructor.
+     * @param string|null $rabbitMqHost
+     * @param string|null $rabbitMqPort
+     * @param string|null $rabbitMqUser
+     * @param string|null $rabbitMqPassword
      * @param string|null $awsRegion
      * @param string|null $awsKey
      * @param string|null $awsSecret
-     * @param string|null $azureStorageAccountConnectionString
-     * @param string|null $azureServiceBusConnectionString
      * @param string|null $publisherKey
      * @param string|null $subscriberKey
      */
     public function __construct(
+        string $rabbitMqHost = null,
+        string $rabbitMqPort = null,
+        string $rabbitMqUser = null,
+        string $rabbitMqPassword = null,
         string $awsRegion = null,
         string $awsKey = null,
         string $awsSecret = null,
-        string $azureStorageAccountConnectionString = null,
-        string $azureServiceBusConnectionString = null,
         string $publisherKey = null,
         string $subscriberKey = null
     ) {
-        $this->awsRegion                           = $awsRegion;
-        $this->awsKey                              = $awsKey;
-        $this->awsSecret                           = $awsSecret;
-        $this->azureStorageAccountConnectionString = $azureStorageAccountConnectionString;
-        $this->azureServiceBusConnectionString     = $azureServiceBusConnectionString;
-        $this->publisherKey                        = $publisherKey;
-        $this->subscriberKey                       = $subscriberKey;
+        $this->rabbitMqHost     = $rabbitMqHost;
+        $this->rabbitMqPort     = $rabbitMqPort;
+        $this->rabbitMqUser     = $rabbitMqUser;
+        $this->rabbitMqPassword = $rabbitMqPassword;
+        $this->awsRegion        = $awsRegion;
+        $this->awsKey           = $awsKey;
+        $this->awsSecret        = $awsSecret;
+        $this->publisherKey     = $publisherKey;
+        $this->subscriberKey    = $subscriberKey;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getRabbitMqHost(): ?string
+    {
+        return $this->rabbitMqHost;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getRabbitMqPort(): ?string
+    {
+        return $this->rabbitMqPort;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getRabbitMqUser(): ?string
+    {
+        return $this->rabbitMqUser;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getRabbitMqPassword(): ?string
+    {
+        return $this->rabbitMqPassword;
     }
 
     /**
@@ -83,22 +123,6 @@ class ToolsConfig
     public function getAwsSecret(): ?string
     {
         return $this->awsSecret;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getAzureStorageAccountConnectionString(): ?string
-    {
-        return $this->azureStorageAccountConnectionString;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getAzureServiceBusConnectionString(): ?string
-    {
-        return $this->azureServiceBusConnectionString;
     }
 
     /**

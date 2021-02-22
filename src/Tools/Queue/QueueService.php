@@ -14,7 +14,7 @@ namespace BayWaReLusy\Tools\Queue;
 
 use BayWaReLusy\Tools\ConsoleAwareInterface;
 use BayWaReLusy\Tools\ConsoleAwareTrait;
-use BayWaReLusy\Tools\Queue\Adapter\AdapterInterface;
+use BayWaReLusy\Tools\Queue\Adapter\QueueAdapterInterface;
 use Laminas\Console\ColorInterface;
 
 /**
@@ -31,15 +31,15 @@ class QueueService implements ConsoleAwareInterface
 {
     use ConsoleAwareTrait;
 
-    protected AdapterInterface $adapter;
+    protected QueueAdapterInterface $adapter;
 
     /**
      * Set the adapter.
      *
-     * @param AdapterInterface $adapter The adapter.
+     * @param QueueAdapterInterface $adapter The adapter.
      * @return $this Provides a fluent interface.
      */
-    public function setAdapter(AdapterInterface $adapter)
+    public function setAdapter(QueueAdapterInterface $adapter)
     {
         $this->adapter = $adapter;
         return $this;
@@ -48,7 +48,7 @@ class QueueService implements ConsoleAwareInterface
     /**
      * Return the adapter.
      *
-     * @return AdapterInterface The adapter.
+     * @return QueueAdapterInterface The adapter.
      */
     public function getAdapter()
     {

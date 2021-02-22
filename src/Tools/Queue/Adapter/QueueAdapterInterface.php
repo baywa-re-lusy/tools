@@ -1,10 +1,10 @@
 <?php
 /**
- * AdapterInterface.php
+ * QueueAdapterInterface.php
  *
  * @date      16.02.2021
  * @author    Pascal Paulis <pascal.paulis@baywa-re.com>
- * @file      AdapterInterface.php
+ * @file      QueueAdapterInterface.php
  * @copyright Copyright (c) BayWa r.e. - All rights reserved
  * @license   Unauthorized copying of this source code, via any medium is strictly
  *            prohibited, proprietary and confidential.
@@ -16,7 +16,7 @@ use BayWaReLusy\Tools\Queue\Message;
 use BayWaReLusy\Tools\Queue\QueueException;
 
 /**
- * AdapterInterface
+ * QueueAdapterInterface
  *
  * @package     BayWaReLusy
  * @subpackage  Tools
@@ -25,7 +25,7 @@ use BayWaReLusy\Tools\Queue\QueueException;
  * @license     Unauthorized copying of this source code, via any medium is strictly
  *              prohibited, proprietary and confidential.
  */
-interface AdapterInterface
+interface QueueAdapterInterface
 {
     /**
      * Send a message.
@@ -42,20 +42,12 @@ interface AdapterInterface
         string $messageBody,
         string $messageGroupId = null,
         string $messageDeduplicationId = null
-    ): AdapterInterface;
-
-    /**
-     * Receive a message.
-     *
-     * @param string $queueUrl
-     * @return Message
-     */
-    public function receiveMessage(string $queueUrl): ?Message;
+    ): QueueAdapterInterface;
 
     /**
      * @param string $queueUrl
      * @param Message $message
      * @return $this
      */
-    public function deleteMessage(string $queueUrl, Message $message): AdapterInterface;
+    public function deleteMessage(string $queueUrl, Message $message): QueueAdapterInterface;
 }
