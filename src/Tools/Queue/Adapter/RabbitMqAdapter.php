@@ -13,6 +13,7 @@
 namespace BayWaReLusy\Tools\Queue\Adapter;
 
 use BayWaReLusy\Tools\Queue\Message;
+use PhpAmqpLib\Channel\AMQPChannel;
 use PhpAmqpLib\Connection\AMQPStreamConnection;
 use PhpAmqpLib\Message\AMQPMessage;
 
@@ -28,14 +29,16 @@ use PhpAmqpLib\Message\AMQPMessage;
 class RabbitMqAdapter implements ConsumerQueueAdapterInterface
 {
     protected AMQPStreamConnection $connection;
+    protected AMQPChannel $channel;
 
     /**
      * RabbitMqAdapter constructor.
      * @param AMQPStreamConnection $connection
      */
-    public function __construct(AMQPStreamConnection $connection)
+    public function __construct(AMQPStreamConnection $connection, AMQPChannel $channel)
     {
         $this->connection = $connection;
+        $this->channel    = $channel;
     }
 
     /**
@@ -47,6 +50,14 @@ class RabbitMqAdapter implements ConsumerQueueAdapterInterface
         string $messageGroupId = null,
         string $messageDeduplicationId = null
     ): QueueAdapterInterface {
+        $message = new AMQPMessage(
+            $messageBody,
+            array('delivery_mode' => AMQPMessage::DELIVERY_MODE_PERSISTENT)
+        );
+
+        $this->channel->basic_publish($message, '', $queueUrl);
+
+        return $this;
     }
 
     /**
@@ -59,17 +70,16 @@ class RabbitMqAdapter implements ConsumerQueueAdapterInterface
             $msg->ack();
         };
 
-        $channel = $this->connection->channel();
-        $channel->queue_declare($queueUrl, false, true, false, false);
-        $channel->basic_qos(null, 1, null);
-        $channel->basic_consume($queueUrl, '', false, false, false, false, $callback);
+        //$channel->queue_declare($queueUrl, false, true, false, false);
+        $this->channel->basic_qos(null, 1, null);
+        $this->channel->basic_consume($queueUrl, '', false, false, false, false, $callback);
 
-        while ($channel->is_consuming()) {
-            $channel->wait();
+        while ($this->channel->is_consuming()) {
+            $this->channel->wait();
         }
 
-        $channel->close();
-        $this->connection->close();
+        //$this->channel->close();
+        //$this->connection->close();
     }
 
     /**
