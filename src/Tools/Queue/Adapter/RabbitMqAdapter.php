@@ -48,7 +48,7 @@ class RabbitMqAdapter implements ConsumerQueueAdapterInterface
         string $messageGroupId = null,
         string $messageDeduplicationId = null
     ): QueueAdapterInterface {
-        $channel = $this->connection->channel($queueUrl);
+        $channel = $this->connection->channel();
         $channel->queue_declare($queueUrl, false, true, false, false);
 
         $message = new AMQPMessage(
@@ -66,7 +66,7 @@ class RabbitMqAdapter implements ConsumerQueueAdapterInterface
      */
     public function consume(string $queueUrl, callable $messageHandler): ?Message
     {
-        $channel = $this->connection->channel($queueUrl);
+        $channel = $this->connection->channel();
 
         $callback = function (AMQPMessage $msg) use ($messageHandler) {
             $messageHandler($msg->getBody());
