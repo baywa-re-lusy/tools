@@ -29,16 +29,14 @@ use PhpAmqpLib\Message\AMQPMessage;
 class RabbitMqAdapter implements ConsumerQueueAdapterInterface
 {
     protected AMQPStreamConnection $connection;
-    protected AMQPChannel $channel;
 
     /**
      * RabbitMqAdapter constructor.
      * @param AMQPStreamConnection $connection
      */
-    public function __construct(AMQPStreamConnection $connection, AMQPChannel $channel)
+    public function __construct(AMQPStreamConnection $connection)
     {
         $this->connection = $connection;
-        $this->channel    = $channel;
     }
 
     /**
@@ -55,7 +53,7 @@ class RabbitMqAdapter implements ConsumerQueueAdapterInterface
             array('delivery_mode' => AMQPMessage::DELIVERY_MODE_PERSISTENT)
         );
 
-        $this->channel->basic_publish($message, '', $queueUrl);
+        $this->connection->channel($queueUrl)->basic_publish($message, '', $queueUrl);
 
         return $this;
     }
@@ -65,21 +63,23 @@ class RabbitMqAdapter implements ConsumerQueueAdapterInterface
      */
     public function consume(string $queueUrl, callable $messageHandler): ?Message
     {
+        $channel = $this->connection->channel($queueUrl);
+
         $callback = function (AMQPMessage $msg) use ($messageHandler) {
             $messageHandler($msg->getBody());
             $msg->ack();
         };
 
         //$channel->queue_declare($queueUrl, false, true, false, false);
-        $this->channel->basic_qos(null, 1, null);
-        $this->channel->basic_consume($queueUrl, '', false, false, false, false, $callback);
+        $channel->basic_qos(null, 1, null);
+        $channel->basic_consume($queueUrl, '', false, false, false, false, $callback);
 
-        while ($this->channel->is_consuming()) {
-            $this->channel->wait();
+        while ($channel->is_consuming()) {
+            $channel->wait();
         }
 
-        //$this->channel->close();
-        //$this->connection->close();
+        $channel->close();
+        $this->connection->close();
     }
 
     /**

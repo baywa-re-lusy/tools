@@ -43,6 +43,6 @@ class RabbitMqAdapterFactory implements FactoryInterface
             $config->getRabbitMqPassword()
         );
 
-        return new RabbitMqAdapter($connection, $connection->channel());
+        return new RabbitMqAdapter($connection);
     }
 }
