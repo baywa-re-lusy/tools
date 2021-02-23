@@ -48,12 +48,15 @@ class RabbitMqAdapter implements ConsumerQueueAdapterInterface
         string $messageGroupId = null,
         string $messageDeduplicationId = null
     ): QueueAdapterInterface {
+        $channel = $this->connection->channel($queueUrl);
+        $channel->queue_declare($queueUrl, false, true, false, false);
+
         $message = new AMQPMessage(
             $messageBody,
             array('delivery_mode' => AMQPMessage::DELIVERY_MODE_PERSISTENT)
         );
 
-        $this->connection->channel($queueUrl)->basic_publish($message, '', $queueUrl);
+        $channel->basic_publish($message, '', $queueUrl);
 
         return $this;
     }
