@@ -64,7 +64,7 @@ class RabbitMqAdapter implements ConsumerQueueAdapterInterface
     /**
      * @inheritdoc
      */
-    public function consume(string $queueUrl, callable $messageHandler): ?Message
+    public function consume(string $queueUrl, callable $messageHandler): void
     {
         $channel = $this->connection->channel();
 

@@ -31,7 +31,6 @@ interface ConsumerQueueAdapterInterface extends QueueAdapterInterface
      *
      * @param string $queueUrl
      * @param callable $messageHandler A function or method accepting a BayWaReLusy\Tools\Queue\Message as parameter
-     * @return Message|null
      */
-    public function consume(string $queueUrl, callable $messageHandler): ?Message;
+    public function consume(string $queueUrl, callable $messageHandler): void;
 }

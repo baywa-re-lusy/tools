@@ -14,6 +14,8 @@ namespace BayWaReLusy\Tools\Queue;
 
 use BayWaReLusy\Tools\ConsoleAwareInterface;
 use BayWaReLusy\Tools\ConsoleAwareTrait;
+use BayWaReLusy\Tools\Queue\Adapter\ConsumerQueueAdapterInterface;
+use BayWaReLusy\Tools\Queue\Adapter\PollingQueueAdapterInterface;
 use BayWaReLusy\Tools\Queue\Adapter\QueueAdapterInterface;
 use Laminas\Console\ColorInterface;
 
@@ -88,8 +90,9 @@ class QueueService implements ConsoleAwareInterface
      *
      * @param string $queueUrl
      * @return Message|null
+     * @throws \Exception
      */
-    public function receiveMessage(string $queueUrl)
+    public function receiveMessage(string $queueUrl): ?Message
     {
         // Check first if we are running in a console
         if ($this->getConsole()) {
@@ -99,7 +102,39 @@ class QueueService implements ConsoleAwareInterface
             );
         }
 
-        return $this->getAdapter()->receiveMessage($queueUrl);
+        $adapter = $this->getAdapter();
+
+        if ($adapter instanceof PollingQueueAdapterInterface) {
+            return $adapter->receiveMessage($queueUrl);
+        }
+
+        throw new \Exception(sprintf("The queue '%s' is not a polling-type queue.", $queueUrl));
+    }
+
+    /**
+     * Consume messages in the given queue.
+     *
+     * @param string $queueUrl
+     * @param callable $messageHandler
+     * @throws \Exception
+     */
+    public function consume(string $queueUrl, callable $messageHandler): void
+    {
+        // Check first if we are running in a console
+        if ($this->getConsole()) {
+            $this->getConsole()->writeLine(
+                date_create()->format('[c] ') . "Start consuming messages on queue $queueUrl ...",
+                ColorInterface::WHITE
+            );
+        }
+
+        $adapter = $this->getAdapter();
+
+        if ($adapter instanceof ConsumerQueueAdapterInterface) {
+            $adapter->consume($queueUrl, $messageHandler);
+        }
+
+        throw new \Exception(sprintf("The queue '%s' is not a consumer-type queue.", $queueUrl));
     }
 
     /**
