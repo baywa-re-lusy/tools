@@ -69,8 +69,13 @@ class RabbitMqAdapter implements ConsumerQueueAdapterInterface
         $channel = $this->connection->channel();
 
         $callback = function (AMQPMessage $msg) use ($messageHandler) {
-            $messageHandler($msg->getBody());
-            $msg->ack();
+            try {
+                $messageHandler($msg->getBody());
+                $msg->ack();
+            } catch (\Throwable $e) {
+                $msg->nack(true);
+                throw $e;
+            }
         };
 
         //$channel->queue_declare($queueUrl, false, true, false, false);
