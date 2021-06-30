@@ -12,12 +12,11 @@
 
 namespace BayWaReLusy\Tools\Queue;
 
-use BayWaReLusy\Tools\ConsoleAwareInterface;
-use BayWaReLusy\Tools\ConsoleAwareTrait;
+use BayWaReLusy\Tools\LoggerAwareInterface;
+use BayWaReLusy\Tools\LoggerAwareTrait;
 use BayWaReLusy\Tools\Queue\Adapter\ConsumerQueueAdapterInterface;
 use BayWaReLusy\Tools\Queue\Adapter\PollingQueueAdapterInterface;
 use BayWaReLusy\Tools\Queue\Adapter\QueueAdapterInterface;
-use Laminas\Console\ColorInterface;
 
 /**
  * Class QueueService
@@ -29,9 +28,9 @@ use Laminas\Console\ColorInterface;
  * @license     Unauthorized copying of this source code, via any medium is strictly
  *              prohibited, proprietary and confidential.
  */
-class QueueService implements ConsoleAwareInterface
+class QueueService implements LoggerAwareInterface
 {
-    use ConsoleAwareTrait;
+    use LoggerAwareTrait;
 
     protected QueueAdapterInterface $adapter;
 
@@ -72,11 +71,9 @@ class QueueService implements ConsoleAwareInterface
         string $messageGroupId = null,
         string $messageDeduplicationId = null
     ) {
-        // Check first if we are running in a console
-        if ($this->getConsole()) {
-            $this->getConsole()->writeLine(
-                date_create()->format('[c] ') . "Sending a message on $queueUrl ...",
-                ColorInterface::LIGHT_GREEN
+        if ($this->getLogger()) {
+            $this->getLogger()->info(
+                date_create()->format('[c] ') . "Sending a message on $queueUrl ..."
             );
         }
 
@@ -94,11 +91,9 @@ class QueueService implements ConsoleAwareInterface
      */
     public function receiveMessage(string $queueUrl): ?Message
     {
-        // Check first if we are running in a console
-        if ($this->getConsole()) {
-            $this->getConsole()->writeLine(
-                date_create()->format('[c] ') . "Checking queue for messages on $queueUrl ...",
-                ColorInterface::WHITE
+        if ($this->getLogger()) {
+            $this->getLogger()->info(
+                date_create()->format('[c] ') . "Checking queue for messages on $queueUrl ..."
             );
         }
 
@@ -120,11 +115,9 @@ class QueueService implements ConsoleAwareInterface
      */
     public function consume(string $queueUrl, callable $messageHandler): void
     {
-        // Check first if we are running in a console
-        if ($this->getConsole()) {
-            $this->getConsole()->writeLine(
-                date_create()->format('[c] ') . "Start consuming messages on queue $queueUrl ...",
-                ColorInterface::WHITE
+        if ($this->getLogger()) {
+            $this->getLogger()->writeLine(
+                date_create()->format('[c] ') . "Start consuming messages on queue $queueUrl ..."
             );
         }
 
@@ -146,16 +139,14 @@ class QueueService implements ConsoleAwareInterface
      */
     public function deleteMessage(string $queueUrl, Message $message)
     {
-        // Check first if we are running in a console
-        if ($this->getConsole()) {
-            $this->getConsole()->writeLine(
+        if ($this->getLogger()) {
+            $this->getLogger()->writeLine(
                 sprintf(
                     "[%s] Deleting message %s on queue %s ...",
                     date_create()->format('c'),
                     $message->getReceiptHandle(),
                     $queueUrl
-                ),
-                ColorInterface::LIGHT_GREEN
+                )
             );
         }
 

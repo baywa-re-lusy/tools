@@ -1,10 +1,10 @@
 <?php
 /**
- * ConsoleAwareInterface.php
+ * LoggerAwareInterface.php
  *
  * @date        16.02.2021
  * @author      Pascal Paulis <pascal.paulis@baywa-re.com>
- * @file        ConsoleAwareInterface.php
+ * @file        LoggerAwareInterface.php
  * @copyright   Copyright (c) BayWa r.e. - All rights reserved
  * @license     Unauthorized copying of this source code, via any medium is strictly
  *              prohibited, proprietary and confidential.
@@ -12,10 +12,10 @@
 
 namespace BayWaReLusy\Tools;
 
-use Laminas\Console\Adapter\AdapterInterface as Console;
+use Monolog\Logger;
 
 /**
- * Class ConsoleAwareInterface
+ * Class LoggerAwareInterface
  *
  * @package     BayWaReLusy
  * @subpackage  Tools
@@ -24,21 +24,21 @@ use Laminas\Console\Adapter\AdapterInterface as Console;
  * @license     Unauthorized copying of this source code, via any medium is strictly
  *              prohibited, proprietary and confidential.
  */
-interface ConsoleAwareInterface
+interface LoggerAwareInterface
 {
     /**
-     * Get the console adapter
+     * Get the loggere adapter
      *
-     * @return Console|null
+     * @return Logger|null
      */
-    public function getConsole(): ?Console;
+    public function getLogger(): ?Logger;
 
     /**
-     * Set the console adapter
+     * Set the loggere adapter
      *
-     * @param Console $console
+     * @param Logger $loggere
      *
      * @return self
      */
-    public function setConsole(Console $console): ConsoleAwareInterface;
+    public function setLogger(Logger $loggere): LoggerAwareInterface;
 }
